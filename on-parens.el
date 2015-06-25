@@ -293,5 +293,43 @@
                          "up, backward, down")
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; editing commands!
+(defmacro on-parens--maybe-forwarded (name forward-p action)
+  `(defun ,name (&optional arg)
+     (interactive "p")
+     (let ((fwd (,forward-p)))
+       (when fwd
+         (forward-char))
+       (,action arg)
+       (when fwd
+         (backward-char)))))
+
+(on-parens--maybe-forwarded on-parens-forward-slurp
+                            on-parens-on-open?
+                            sp-forward-slurp-sexp)
+(on-parens--maybe-forwarded on-parens-backward-slurp
+                            on-parens-on-open?
+                            sp-backward-slurp-sexp)
+(on-parens--maybe-forwarded on-parens-forward-barf
+                            on-parens-on-open?
+                            sp-forward-barf-sexp)
+(on-parens--maybe-forwarded on-parens-backward-barf
+                            on-parens-on-open?
+                            sp-backward-barf-sexp)
+(on-parens--maybe-forwarded on-parens-splice
+                            on-parens-on-open?
+                            sp-splice-sexp)
+(on-parens--maybe-forwarded on-parens-split-supersexp
+                            on-parens-on-close?
+                            sp-split-sexp)
+(on-parens--maybe-forwarded on-parens-join-neighbor-sexp
+                            on-parens-on-close?
+                            sp-join-sexp)
+(defun on-parens-kill-sexp (&optional arg)
+  (interactive "p")
+  (sp-kill-sexp arg))
+
+
 (provide 'on-parens)
 ;;; on-parens.el ends here

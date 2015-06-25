@@ -27,6 +27,8 @@ down.
 Commands
 --------
 
+For movement we have:
+
 - on-parens-forward-sexp
 - on-parens-forward-sexp-end
 - on-parens-backward-sexp
@@ -37,6 +39,24 @@ Commands
 - on-parens-down-sexp-end
 - on-parens-forward-sexp-in-supersexp
 - on-parens-backward-sexp-in-supersexp
+
+Editing commands:
+
+- on-parens-forward-slurp
+- on-parens-forward-barf
+- on-parens-backward-slurp
+- on-parens-backward-barf
+- on-parens-splice
+- on-parens-split-supersexp
+- on-parens-join-neighbor-sexp
+- on-parens-kill-sexp
+
+The editing commands probably do what you expect, they only differ
+from smartparens in which sexp they operate on when run on top of an
+opening or closing delimiter.  `on-parens-kill-sexp` is actually
+pretty useless in normal state, because we have
+`d<your keybinding for on-parens-forward-sexp here>`, just like we would
+use `dw`.  Numeric arguments work as expected.
 
 Issues
 ------

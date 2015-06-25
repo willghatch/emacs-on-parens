@@ -178,7 +178,7 @@
                          "Move forward to the start of the next sexp.")
 
 (defun on-parens--backward-sexp-from-on-open ()
-  (when (on-parens--advances? 'sp-previous-sexp nil)
+  (when (on-parens--on-first-sexp?)
     (progn
       (sp-previous-sexp)
       (backward-char)

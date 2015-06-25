@@ -1,11 +1,10 @@
-;;; -*- lexical-binding: t; -*-
-;;; on-parens.el --- smartparens wrapper to fit with evil-mode/vim normal-state
+;;; on-parens.el --- smartparens wrapper to fit with evil-mode/vim normal-state -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2015
 
 ;; Author:  William G Hatch
 ;; Keywords: evil, smartparens
-;; Package-Requires: ((dash "2.10.0") (emacs "24") (evil) (smartparens))
+;; Package-Requires: ((dash "2.10.0") (emacs "24") (evil "1.1.6") (smartparens "1.6.3"))
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by

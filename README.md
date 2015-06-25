@@ -1,5 +1,5 @@
-emacs-on-parens
-===============
+on-parens
+=========
 
 What is it?
 -----------

@@ -275,5 +275,23 @@
                          on-parens-up-sexp
                          "Move down to the end of the contained sexp.")
 
+(defun on-parens--forward-sexp-in-supersexp ()
+  (on-parens--up-sexp)
+  (on-parens--forward-sexp)
+  (on-parens--down-sexp))
+(defun on-parens--backward-sexp-in-supersexp ()
+  (on-parens--up-sexp)
+  (on-parens--backward-sexp-end)
+  (on-parens--down-sexp))
+(on-parens--command-wrap on-parens-forward-sexp-in-supersexp
+                         on-parens--forward-sexp-in-supersexp
+                         on-parens-backward-sexp-in-supersexp
+                         "up, forward, down")
+(on-parens--command-wrap on-parens-backward-sexp-in-supersexp
+                         on-parens--backward-sexp-in-supersexp
+                         on-parens-forward-sexp-in-supersexp
+                         "up, backward, down")
+
+
 (provide 'on-parens)
 ;;; on-parens.el ends here

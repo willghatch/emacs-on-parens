@@ -35,6 +35,8 @@ Commands
 - on-parens-up-sexp-end
 - on-parens-down-sexp
 - on-parens-down-sexp-end
+- on-parens-forward-sexp-in-supersexp
+- on-parens-backward-sexp-in-supersexp
 
 Issues
 ------

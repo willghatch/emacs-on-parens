@@ -45,8 +45,8 @@
   ;; return a list of smartparen specs that are global or for an active mode
   (let ((mode (car sp-def)))
     (if (or
-         (equalp t mode)
-         (equalp mode major-mode)
+         (equal t mode)
+         (equal mode major-mode)
          (-contains? minor-mode-list mode))
         (cdr sp-def)
       nil)))
@@ -54,7 +54,7 @@
   ;; get the delimiter from the spec
   (let ((kw (if open? :open :close)))
     (cond ((not sp-spec) nil)
-          ((equalp (car sp-spec) kw) (cadr sp-spec))
+          ((equal (car sp-spec) kw) (cadr sp-spec))
           (t (on-parens--get-delim-from-spec (cdr sp-spec) open?)))))
 
 (defun on-parens--delim-list (open?)
@@ -94,7 +94,7 @@
 (defun on-parens--movements-equal? (a b)
   (let ((am (save-excursion (funcall a) (point)))
         (bm (save-excursion (funcall b) (point))))
-    (equalp am bm)))
+    (equal am bm)))
 
 (defun on-parens--from-close-on-last-sexp? ()
   (on-parens--movements-equal?

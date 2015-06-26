@@ -4,7 +4,7 @@
 
 ;; Author:  William G Hatch
 ;; Keywords: evil, smartparens
-;; Package-Requires: ((dash "2.10.0") (emacs "24") (evil "1.1.6") (smartparens "1.6.3"))
+;; Package-Requires: ((dash "2.10.0") (emacs "24") (evil "1.1.6") (smartparens "1.6.3") (cl-lib "0.5"))
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -40,13 +40,14 @@
 (require 'dash)
 (require 'smartparens)
 (require 'evil) ; for evil-jump-item
+(require 'cl-lib)
 
 (defun on-parens--get-specs (sp-def)
   ;; return a list of smartparen specs that are global or for an active mode
   (let ((mode (car sp-def)))
     (if (or
-         (equalp t mode)
-         (equalp mode major-mode)
+         (cl-equalp t mode)
+         (cl-equalp mode major-mode)
          (-contains? minor-mode-list mode))
         (cdr sp-def)
       nil)))
@@ -54,7 +55,7 @@
   ;; get the delimiter from the spec
   (let ((kw (if open? :open :close)))
     (cond ((not sp-spec) nil)
-          ((equalp (car sp-spec) kw) (cadr sp-spec))
+          ((cl-equalp (car sp-spec) kw) (cadr sp-spec))
           (t (on-parens--get-delim-from-spec (cdr sp-spec) open?)))))
 
 (defun on-parens--delim-list (open?)
@@ -94,7 +95,7 @@
 (defun on-parens--movements-equal? (a b)
   (let ((am (save-excursion (funcall a) (point)))
         (bm (save-excursion (funcall b) (point))))
-    (equalp am bm)))
+    (cl-equalp am bm)))
 
 (defun on-parens--from-close-on-last-sexp? ()
   (on-parens--movements-equal?

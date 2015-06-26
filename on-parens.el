@@ -110,7 +110,7 @@
 (defun on-parens--on-last-sexp? ()
   (cond ((on-parens-on-open?) (on-parens--from-open-on-last-sexp?))
         ((on-parens-on-close?) (on-parens--from-close-on-last-sexp?))
-        (t (on-parens-on-last-symbol-sexp?))))
+        (t (on-parens--on-last-symbol-sexp?))))
 
 (defun on-parens--from-open-on-first-sexp? ()
   (on-parens--advances? 'sp-previous-sexp t))

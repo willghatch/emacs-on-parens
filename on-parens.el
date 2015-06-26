@@ -153,7 +153,7 @@
      (interactive "p")
      (if (< arg 0)
          (,opposite (abs arg))
-       (dotimes (i arg)
+       (dotimes (_i arg)
          (,command)))))
 
 (defun on-parens--forward-sexp-from-on-open ()

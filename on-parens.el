@@ -41,6 +41,10 @@
 (require 'smartparens)
 (require 'evil) ; for evil-jump-item
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Section for getting needed info out of smartparens settings
+
 (defun on-parens--get-specs (sp-def)
   ;; return a list of smartparen specs that are global or for an active mode
   (let ((mode (car sp-def)))
@@ -71,6 +75,9 @@
                       (looking-at-p cur)))
                   nil
                   delims)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Predicates!
 
 (defun on-parens-on-open? ()
   (on-parens--at-delim-p t))
@@ -147,7 +154,13 @@
   (on-parens--movements-equal?
    'sp-backward-sexp (lambda () (sp-end-of-sexp) (sp-backward-sexp))))
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Motion commands
+
 (defmacro on-parens--command-wrap (name command opposite docs)
+  ;; Wrapper code to make a command that takes an optionally negative
+  ;; prefix argument, because they're all the same
   `(defun ,name (&optional arg)
      ,docs
      (interactive "p")
@@ -289,7 +302,8 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; editing commands!
+;;; editing commands!
+
 (defmacro on-parens--maybe-forwarded (name forward-p action)
   `(defun ,name (&optional arg)
      (interactive "p")

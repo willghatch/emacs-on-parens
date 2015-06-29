@@ -1,3 +1,5 @@
+[![MELPA](http://melpa.org/packages/on-parens-badge.svg)](http://melpa.org/#/on-parens)
+
 on-parens
 =========
 
@@ -103,6 +105,12 @@ parens.  Alternatively, instead of `D` you can use
 `d<on-parens-up-sexp>` to accomplish the same, and still have `D`
 around (sometimes obliterating paren balance and rebuilding can just
 be easier, so it's nice to have the normal functionality too).
+
+Install
+-------
+
+Install from Melpa or clone this repo into your load path and run
+`(require 'on-parens)` in your initialization.
 
 License
 -------

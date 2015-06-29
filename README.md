@@ -109,6 +109,8 @@ be easier, so it's nice to have the normal functionality too).
 Install
 -------
 
+Requires Emacs version 24.
+
 Install from Melpa or clone this repo into your load path and run
 `(require 'on-parens)` in your initialization.
 

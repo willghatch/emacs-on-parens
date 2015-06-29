@@ -79,11 +79,15 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Predicates!
 
+;; TODO - handle delimiters like "" better.
 (defun on-parens-on-open? ()
+  "Is point on an opening smartparens delimiter?"
   (on-parens--at-delim-p t))
 (defun on-parens-on-close? ()
+  "Is point on a closing smartparens delimiter?"
   (on-parens--at-delim-p nil))
 (defun on-parens-on-delimiter? ()
+  "Is point on a smartparens delimiter?"
   (or (on-parens-on-open?) (on-parens-on-close?)))
 
 
@@ -336,6 +340,7 @@
                             on-parens-on-close?
                             sp-join-sexp)
 (defun on-parens-kill-sexp (&optional arg)
+  "It's actually just sp-kill-sexp!"
   (interactive "p")
   (sp-kill-sexp arg))
 

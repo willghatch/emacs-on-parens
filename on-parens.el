@@ -188,6 +188,7 @@
                      (on-parens--forward-sexp-end-else)
                      (on-parens--on-end-of-last-symbol-sexp?))
              (sp-next-sexp)))))
+;;;###autoload (autoload 'on-parens-forward-sexp "on-parens.el" "" t)
 (on-parens--command-wrap on-parens-forward-sexp
                          on-parens--forward-sexp
                          on-parens-backward-sexp
@@ -204,6 +205,7 @@
         (t (unless (on-parens--movements-equal? 'sp-backward-sexp
                                                 'sp-backward-up-sexp)
              (sp-backward-sexp)))))
+;;;###autoload (autoload 'on-parens-backward-sexp "on-parens.el" "" t)
 (on-parens--command-wrap on-parens-backward-sexp
                          on-parens--backward-sexp
                          on-parens-forward-sexp
@@ -225,6 +227,7 @@
   (cond ((on-parens-on-open?) (on-parens--forward-sexp-end-from-on-open))
         ((on-parens-on-close?) (on-parens--forward-sexp-end-from-on-close))
         (t (on-parens--forward-sexp-end-else))))
+;;;###autoload (autoload 'on-parens-forward-sexp-end "on-parens.el" "" t)
 (on-parens--command-wrap on-parens-forward-sexp-end
                          on-parens--forward-sexp-end
                          on-parens-backward-sexp-end
@@ -248,6 +251,7 @@
   (cond ((on-parens-on-open?) (on-parens--backward-sexp-end-from-on-open))
         ((on-parens-on-close?) (on-parens--backward-sexp-end-from-on-close))
         (t (on-parens--backward-sexp-end-else))))
+;;;###autoload (autoload 'on-parens-backward-sexp-end "on-parens.el" "" t)
 (on-parens--command-wrap on-parens-backward-sexp-end
                          on-parens--backward-sexp-end
                          on-parens-forward-sexp-end
@@ -257,6 +261,7 @@
   (when (on-parens-on-close?)
     (forward-char))
   (sp-backward-up-sexp))
+;;;###autoload (autoload 'on-parens-up-sexp "on-parens.el" "" t)
 (on-parens--command-wrap on-parens-up-sexp
                          on-parens--up-sexp
                          on-parens-down-sexp
@@ -266,6 +271,7 @@
     (forward-char))
   (sp-up-sexp)
   (backward-char))
+;;;###autoload (autoload 'on-parens-up-sexp-end "on-parens.el" "" t)
 (on-parens--command-wrap on-parens-up-sexp-end
                          on-parens--up-sexp-end
                          on-parens-down-sexp
@@ -274,6 +280,7 @@
 (defun on-parens--down-sexp ()
   ;; Surprise!!!
   (sp-down-sexp))
+;;;###autoload (autoload 'on-parens-down-sexp "on-parens.el" "" t)
 (on-parens--command-wrap on-parens-down-sexp
                          on-parens--down-sexp
                          on-parens-up-sexp
@@ -282,6 +289,7 @@
   (sp-down-sexp)
   (sp-end-of-sexp)
   (backward-char))
+;;;###autoload (autoload 'on-parens-down-sexp-end "on-parens.el" "" t)
 (on-parens--command-wrap on-parens-down-sexp-end
                          on-parens--down-sexp-end
                          on-parens-up-sexp
@@ -295,10 +303,12 @@
   (on-parens--up-sexp)
   (on-parens--backward-sexp-end)
   (on-parens--down-sexp))
+;;;###autoload (autoload 'on-parens-forward-sexp-in-supersexp "on-parens.el" "" t)
 (on-parens--command-wrap on-parens-forward-sexp-in-supersexp
                          on-parens--forward-sexp-in-supersexp
                          on-parens-backward-sexp-in-supersexp
                          "up, forward, down")
+;;;###autoload (autoload 'on-parens-backward-sexp-in-supersexp "on-parens.el" "" t)
 (on-parens--command-wrap on-parens-backward-sexp-in-supersexp
                          on-parens--backward-sexp-in-supersexp
                          on-parens-forward-sexp-in-supersexp
@@ -318,27 +328,35 @@
        (when fwd
          (backward-char)))))
 
+;;;###autoload (autoload 'on-parens-forward-slurp "on-parens.el" "" t)
 (on-parens--maybe-forwarded on-parens-forward-slurp
                             on-parens-on-open?
                             sp-forward-slurp-sexp)
+;;;###autoload (autoload 'on-parens-backward-slurp "on-parens.el" "" t)
 (on-parens--maybe-forwarded on-parens-backward-slurp
                             on-parens-on-open?
                             sp-backward-slurp-sexp)
+;;;###autoload (autoload 'on-parens-forward-barf "on-parens.el" "" t)
 (on-parens--maybe-forwarded on-parens-forward-barf
                             on-parens-on-open?
                             sp-forward-barf-sexp)
+;;;###autoload (autoload 'on-parens-backward-barf "on-parens.el" "" t)
 (on-parens--maybe-forwarded on-parens-backward-barf
                             on-parens-on-open?
                             sp-backward-barf-sexp)
+;;;###autoload (autoload 'on-parens-splice "on-parens.el" "" t)
 (on-parens--maybe-forwarded on-parens-splice
                             on-parens-on-open?
                             sp-splice-sexp)
+;;;###autoload (autoload 'on-parens-split-supersexp "on-parens.el" "" t)
 (on-parens--maybe-forwarded on-parens-split-supersexp
                             on-parens-on-close?
                             sp-split-sexp)
+;;;###autoload (autoload 'on-parens-join-neighbor-sexp "on-parens.el" "" t)
 (on-parens--maybe-forwarded on-parens-join-neighbor-sexp
                             on-parens-on-close?
                             sp-join-sexp)
+;;;###autoload
 (defun on-parens-kill-sexp (&optional arg)
   "It's actually just sp-kill-sexp!"
   (interactive "p")

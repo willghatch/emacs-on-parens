@@ -133,6 +133,8 @@
 (defun on-parens--on-first-sexp? ()
   (cond ((on-parens-on-open?) (on-parens--from-open-on-first-sexp?))
         ((on-parens-on-close?) (on-parens--from-close-on-first-sexp?))
+        ;; they can't all be the same because sp functions act differently in
+        ;; the middle of symbols
         (t (on-parens--on-end-of-last-symbol-sexp?))))
 
 (defun on-parens--on-start-of-symbol-sexp? ()
@@ -155,8 +157,11 @@
   (on-parens--movements-equal?
    'sp-forward-sexp (lambda () (sp-beginning-of-sexp) (sp-forward-sexp))))
 (defun on-parens--on-last-symbol-sexp? ()
-  (on-parens--movements-equal?
-   'sp-backward-sexp (lambda () (sp-end-of-sexp) (sp-backward-sexp))))
+  (or (on-parens--movements-equal?
+       'sp-backward-sexp (lambda () (sp-end-of-sexp) (sp-backward-sexp)))
+      ;; IE on the first char of the last symbol-sexp
+      (on-parens--movements-equal?
+       'ignore (lambda () (sp-end-of-sexp) (sp-backward-sexp)))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -184,9 +189,8 @@
 (defun on-parens--forward-sexp ()
   (cond ((on-parens-on-open?) (on-parens--forward-sexp-from-on-open))
         ((on-parens-on-close?) (on-parens--forward-sexp-from-on-close))
-        (t (unless (save-excursion
-                     (on-parens--forward-sexp-end-else)
-                     (on-parens--on-end-of-last-symbol-sexp?))
+        (t (unless (on-parens--on-last-symbol-sexp?)
+             (sp-forward-sexp)
              (sp-next-sexp)))))
 ;;;###autoload (autoload 'on-parens-forward-sexp "on-parens.el" "" t)
 (on-parens--command-wrap on-parens-forward-sexp

@@ -264,7 +264,13 @@
 (defun on-parens--up-sexp ()
   (when (on-parens-on-close?)
     (forward-char))
-  (sp-backward-up-sexp))
+  (sp-backward-up-sexp)
+  ;; When this is the argument of an evil operator (delete or change), don't delete
+  ;; the starting paren.
+  ;; TODO -- This is still broken if the delimiters are more than one character.
+  ;;         How can I query the size of the delimiter?  (this also affects up-sexp-end)
+  (when (evil-operator-state-p)
+    (forward-char)))
 ;;;###autoload (autoload 'on-parens-up-sexp "on-parens.el" "" t)
 (on-parens--command-wrap on-parens-up-sexp
                          on-parens--up-sexp

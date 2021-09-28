@@ -69,10 +69,12 @@
                     sp-pairs))))
 
 (defun on-parens--at-delim-p (open?)
+  ;; TODO - handle multi-character delimiters better.  This only returns true if point is at the beginning of a multi-char delimiter.
+  ;; Previously this just returned true, but now it returns the string of the delimiter it's on.
   (let ((delims (-map 'regexp-quote (on-parens--delim-list open?))))
     (-reduce-from (lambda (prev cur)
-                    (if prev t
-                      (looking-at-p cur)))
+                    (if prev prev
+                      (and (looking-at-p cur) cur)))
                   nil
                   delims)))
 
@@ -266,11 +268,9 @@
     (forward-char))
   (sp-backward-up-sexp)
   ;; When this is the argument of an evil operator (delete or change), don't delete
-  ;; the starting paren.
-  ;; TODO -- This is still broken if the delimiters are more than one character.
-  ;;         How can I query the size of the delimiter?  (this also affects up-sexp-end)
+  ;; the starting paren.  Use `on-parens-on-open?` to get the size of the delimiter.
   (when (evil-operator-state-p)
-    (forward-char)))
+    (forward-char (length (on-parens-on-open?)))))
 ;;;###autoload (autoload 'on-parens-up-sexp "on-parens.el" "" t)
 (on-parens--command-wrap on-parens-up-sexp
                          on-parens--up-sexp
@@ -279,8 +279,16 @@
 (defun on-parens--up-sexp-end ()
   (when (on-parens-on-close?)
     (forward-char))
-  (sp-up-sexp)
-  (backward-char))
+  (let ((start-point (point)))
+    (sp-up-sexp)
+    (backward-char)
+    (if (> start-point (point))
+        ;; If we went backward, then we didn't actually go up to a closer, so go back to start.
+        (goto-char start-point)
+      ;; If we went forward, we don't want to delete part of a multi-character delimiter in operator mode, so go back to the start of the delimiter.
+      (when (evil-operator-state-p)
+        (while (and (not (on-parens-on-close?)) (not (= start-point (point))))
+          (backward-char))))))
 ;;;###autoload (autoload 'on-parens-up-sexp-end "on-parens.el" "" t)
 (on-parens--command-wrap on-parens-up-sexp-end
                          on-parens--up-sexp-end

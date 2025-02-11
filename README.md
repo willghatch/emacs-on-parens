@@ -1,3 +1,23 @@
+Deprecated
+==========
+
+One part of on-parens was concerned about the cursor being “on characters”, 
+which I think is 
+[sort of a misfeature](http://www.willghatch.net/blog/text-editing/cursor-positioning/)
+of Vi, Vim, and Evil-mode.
+
+But also it was concerned with respecting tree boundaries where Smartparens
+doesn't, and explicitly going to the beginning or end of s-expressions.
+
+I have a new package that includes the other parts, as well as a few other
+features useful for a composable text editor, in the 
+[Composiphrase Objects](https://github.com/willghatch/emacs-composiphrase-objects)
+library.
+
+Also, check out the overall 
+[Composiphrase Demo](https://github.com/willghatch/emacs-composiphrase-demo).
+
+
 [![MELPA](http://melpa.org/packages/on-parens-badge.svg)](http://melpa.org/#/on-parens)
 
 on-parens
